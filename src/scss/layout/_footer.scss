@@ -1,0 +1,77 @@
+/**
+ * Beer Recipe Manager - Footer Layout
+ * Styles for the application footer
+ */
+
+footer {
+    background-color: $primary-dark;
+    color: $white;
+    padding: $spacing-lg 0;
+    margin-top: $spacing-xxl;
+
+    // Container for footer content
+    .footer-content {
+        max-width: $container-max-width;
+        margin: 0 auto;
+        padding: 0 $spacing-lg;
+
+        @include flex-between;
+
+        @media (max-width: $breakpoint-sm) {
+            flex-direction: column;
+            text-align: center;
+            gap: $spacing-md;
+        }
+    }
+
+    // Copyright text
+    p {
+        margin: 0;
+        font-size: $font-size-small;
+        opacity: 0.9;
+    }
+
+    // Footer links
+    .footer-links {
+        @include flex(row, flex-end, center);
+        gap: $spacing-md;
+
+        @media (max-width: $breakpoint-sm) {
+            justify-content: center;
+        }
+
+        a {
+            color: rgba($white, 0.8);
+            text-decoration: none;
+            font-size: $font-size-small;
+            transition: color $transition-normal;
+
+            &:hover,
+            &:focus {
+                color: $white;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    // Footer logo (if needed)
+    .footer-logo {
+        opacity: 0.8;
+        width: 24px;
+        height: 24px;
+
+        svg {
+            fill: $white;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+// Dark mode adjustments
+body.dark-mode {
+    footer {
+        background-color: darken($dark-background, 5%);
+        border-top: 1px solid $dark-border;
+    }
+}

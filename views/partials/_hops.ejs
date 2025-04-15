@@ -1,0 +1,47 @@
+<section id="hops-section" class="card">
+    <h2>Hops</h2>
+    <div class="card-content">
+        <% if (recipe.hops && recipe.hops.length > 0) { %>
+            <div id="hops-list">
+                <% 
+                // Group hops by use
+                const hopGroups = {};
+                recipe.hops.forEach(hop => {
+                    if (!hopGroups[hop.use]) {
+                        hopGroups[hop.use] = [];
+                    }
+                    hopGroups[hop.use].push(hop);
+                });
+                
+                // Display each group
+                Object.keys(hopGroups).forEach(useType => {
+                %>
+                    <div class="hop-group">
+                        <h3 class="hop-group-title"><%= useType %> Hops</h3>
+                        <div class="hop-cards">
+                            <% hopGroups[useType].forEach(hop => { %>
+                                <div class="hop-card">
+                                    <div class="use-indicator" style="background-color: <%= hopUseToColor(hop.use) %>;"></div>
+                                    <div class="hop-content">
+                                        <div class="hop-name"><%= hop.name %></div>
+                                        <div class="hop-details">
+                                            <span class="amount"><%= hop.amount %> g</span>
+                                            <span class="time"><%= formatHopTime(hop.time, hop.use) %></span>
+                                            <% if (hop.alpha) { %>
+                                                <span class="alpha"><%= hop.alpha %>% AA</span>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="empty-state">
+                <p>No hops added to this recipe.</p>
+            </div>
+        <% } %>
+    </div>
+</section>

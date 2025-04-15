@@ -1,0 +1,22 @@
+<header class="app-header">
+    <div class="header-content">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <svg class="beer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M4 2l2 20h12l2-20H4zm2 2h12l-1.5 16h-9L6 4zm5 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 2c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
+                </svg>
+            </div>
+            <h1>Beer Recipe Manager</h1>
+        </div>
+        <nav class="main-nav">
+            <a href="/" class="nav-item <%= currentPage === 'home' ? 'active' : '' %>">Home</a>
+            <a href="/recipes" class="nav-item <%= currentPage === 'recipes' ? 'active' : '' %>">My Recipes</a>
+            <a href="/recipes/create" class="nav-item <%= currentPage === 'create' ? 'active' : '' %>">Create Recipe</a>
+        </nav>
+        <div class="header-actions">
+            <button id="theme-toggle" class="icon-button" aria-label="Toggle dark mode">
+                <span class="material-icons">dark_mode</span>
+            </button>
+        </div>
+    </div>
+</header>

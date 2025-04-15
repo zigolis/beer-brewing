@@ -1,0 +1,28 @@
+<%- include('layouts/main', { title: 'My Recipes' }) %>
+
+<div class="container">
+  <div class="page-header">
+    <h2>My Recipes</h2>
+    <a href="/recipes/create" class="btn primary">Create New Recipe</a>
+  </div>
+
+  <% if (recipes && recipes.length > 0) { %>
+    <div class="recipe-grid">
+      <% recipes.forEach(recipe => { %>
+        <%- include('partials/_recipe-card', { recipe }) %>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <div class="empty-icon">
+        <span class="material-icons">menu_book</span>
+      </div>
+      <h3>No Recipes Found</h3>
+      <p>You haven't created any recipes yet. Get started by creating a new recipe or uploading an XML file.</p>
+      <div class="empty-actions">
+        <a href="/recipes/create" class="btn primary">Create Recipe</a>
+        <a href="/" class="btn secondary">Upload XML</a>
+      </div>
+    </div>
+  <% } %>
+</div>

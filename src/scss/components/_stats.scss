@@ -1,0 +1,125 @@
+/**
+ * Beer Recipe Manager - Stats Component Styles
+ * Styling for the recipe statistics section
+ */
+
+// Stats section container
+#stats-section {
+    margin-bottom: $spacing-lg;
+}
+
+// Stats grid layout
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: $spacing-md;
+
+    @media (max-width: $breakpoint-xs) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-sm;
+    }
+}
+
+// Individual stat card
+.stat-card {
+    display: flex;
+    background-color: $card-background;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+    transition: transform $transition-normal, box-shadow $transition-normal;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
+    }
+
+    // Color indicator on the left side
+    .stat-indicator {
+        width: 6px;
+        min-height: 100%;
+
+        // Color variations based on stat type
+        &.volume {
+            background-color: $volume-color;
+        }
+
+        &.process {
+            background-color: $process-color;
+        }
+
+        &.gravity {
+            background-color: $gravity-color;
+        }
+
+        &.results {
+            background-color: $results-color;
+        }
+
+        &.other {
+            background-color: $other-color;
+        }
+    }
+
+    // Stat content container
+    .stat-content {
+        padding: $spacing-sm $spacing-md;
+        flex: 1;
+
+        // Stat name
+        .stat-name {
+            font-size: $font-size-small;
+            color: $dark-gray;
+            margin-bottom: $spacing-xs;
+        }
+
+        // Stat value
+        .stat-value {
+            font-size: $font-size-large;
+            font-weight: $font-weight-bold;
+            color: $text-color;
+        }
+    }
+}
+
+// Empty state for no stats
+.stats-empty {
+    text-align: center;
+    padding: $spacing-md;
+    color: $dark-gray;
+    font-style: italic;
+}
+
+// Dark mode adjustments
+body.dark-mode {
+    .stat-card {
+        background-color: $dark-card-bg;
+
+        .stat-content {
+            .stat-name {
+                color: darken($dark-text, 15%);
+            }
+
+            .stat-value {
+                color: $dark-text;
+            }
+        }
+    }
+}
+
+// Print styles
+@media print {
+    .stats-grid {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .stat-card {
+        border: 1px solid #ddd;
+        box-shadow: none !important;
+
+        &:hover {
+            transform: none;
+        }
+    }
+}

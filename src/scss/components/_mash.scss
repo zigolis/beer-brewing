@@ -1,0 +1,182 @@
+/**
+ * Beer Recipe Manager - Mash Component Styles
+ * Styling for the mash schedule section of recipes
+ */
+
+// Mash section container
+#mash-section {
+    margin-bottom: $spacing-lg;
+}
+
+// Mash list container
+#mash-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+}
+
+// Individual mash step
+.mash-step {
+    @include ingredient-card;
+    position: relative;
+
+    // Step indicator showing the step number
+    .step-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background-color: $primary-color;
+        color: $white;
+        border-radius: 50%;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-small;
+        margin-right: $spacing-sm;
+        flex-shrink: 0;
+    }
+
+    // Mash content container
+    .mash-content {
+        flex: 1;
+        padding: $spacing-xs $spacing-sm;
+    }
+
+    // Step name
+    .step-name {
+        @include ingredient-name;
+        font-weight: $font-weight-medium;
+        color: $text-color;
+        margin-bottom: $spacing-xs;
+    }
+
+    // Step details
+    .step-details {
+        @include ingredient-details;
+
+        // Temperature
+        .temperature {
+            background-color: rgba($amber-color, 0.1);
+            color: $amber-color;
+        }
+
+        // Step time
+        .step-time {
+            background-color: rgba($primary-color, 0.1);
+            color: $primary-color;
+        }
+
+        // Step type
+        .step-type {
+            background-color: rgba($info-color, 0.1);
+            color: $info-color;
+        }
+    }
+
+    // Connect steps with a vertical line
+    &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 16px;
+        top: 32px;
+        bottom: -16px;
+        width: 2px;
+        background-color: rgba($primary-color, 0.3);
+        z-index: 0;
+    }
+}
+
+// Empty state
+.empty-state {
+    text-align: center;
+    padding: $spacing-lg;
+    color: $dark-gray;
+    font-style: italic;
+}
+
+// Form styles for mash step items
+.mash-step-item {
+    position: relative;
+    background-color: $card-background;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+    box-shadow: $shadow-sm;
+
+    // Remove button
+    .remove-item {
+        position: absolute;
+        top: $spacing-xs;
+        right: $spacing-xs;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: $danger-color;
+        color: $white;
+        border: none;
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color $transition-normal;
+
+        &:hover {
+            background-color: darken($danger-color, 10%);
+        }
+    }
+}
+
+// Dark mode adjustments
+body.dark-mode {
+    .mash-step {
+        background-color: $dark-card-bg;
+
+        .step-indicator {
+            background-color: $primary-dark;
+        }
+
+        .step-name {
+            color: $dark-text;
+        }
+
+        .step-details {
+            span {
+                background-color: rgba($dark-background, 0.4);
+            }
+        }
+
+        &:not(:last-child)::after {
+            background-color: rgba($primary-dark, 0.3);
+        }
+    }
+
+    .mash-step-item {
+        background-color: $dark-card-bg;
+        border-color: $dark-border;
+    }
+}
+
+// Responsive adjustments
+@media (min-width: $breakpoint-md) {
+    .mash-step {
+        flex-direction: row;
+        align-items: center;
+
+        .step-indicator {
+            margin-right: $spacing-md;
+        }
+
+        .mash-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .step-name {
+                margin-bottom: 0;
+                margin-right: $spacing-md;
+            }
+        }
+    }
+}

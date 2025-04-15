@@ -1,0 +1,30 @@
+<section id="fermentables-section" class="card">
+    <h2>Fermentables</h2>
+    <div class="card-content">
+        <% if (recipe.fermentables && recipe.fermentables.length > 0) { %>
+            <div id="fermentables-list">
+                <% recipe.fermentables.forEach(fermentable => { %>
+                    <div class="fermentable-card">
+                        <div class="color-indicator" style="background-color: <%= ebcToColor(fermentable.color) %>;"></div>
+                        <div class="fermentable-content">
+                            <div class="fermentable-name"><%= fermentable.name %></div>
+                            <div class="fermentable-details">
+                                <span class="amount"><%= fermentable.amount %> kg</span>
+                                <% if (fermentable.type) { %>
+                                    <span class="type"><%= fermentable.type %></span>
+                                <% } %>
+                                <% if (fermentable.color) { %>
+                                    <span class="color"><%= fermentable.color %> EBC</span>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="empty-state">
+                <p>No fermentables added to this recipe.</p>
+            </div>
+        <% } %>
+    </div>
+</section>

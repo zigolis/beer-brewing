@@ -1,0 +1,86 @@
+<section id="stats-section" class="card">
+    <h2>Recipe Statistics</h2>
+    <div class="card-content">
+        <div id="stats" class="stats-grid">
+            <% if (recipe.batchSize) { %>
+                <div class="stat-card">
+                    <div class="stat-indicator" style="background-color: var(--volume-color);"></div>
+                    <div class="stat-content">
+                        <div class="stat-name">Batch Size</div>
+                        <div class="stat-value"><%= recipe.batchSize %> L</div>
+                    </div>
+                </div>
+            <% } %>
+            
+            <% if (recipe.boilSize) { %>
+                <div class="stat-card">
+                    <div class="stat-indicator" style="background-color: var(--volume-color);"></div>
+                    <div class="stat-content">
+                        <div class="stat-name">Boil Size</div>
+                        <div class="stat-value"><%= recipe.boilSize %> L</div>
+                    </div>
+                </div>
+            <% } %>
+            
+            <% if (recipe.efficiency) { %>
+                <div class="stat-card">
+                    <div class="stat-indicator" style="background-color: var(--process-color);"></div>
+                    <div class="stat-content">
+                        <div class="stat-name">Efficiency</div>
+                        <div class="stat-value"><%= recipe.efficiency %>%</div>
+                    </div>
+                </div>
+            <% } %>
+            
+            <% if (recipe.originalGravity) { %>
+                <div class="stat-card">
+                    <div class="stat-indicator" style="background-color: var(--gravity-color);"></div>
+                    <div class="stat-content">
+                        <div class="stat-name">OG</div>
+                        <div class="stat-value"><%= recipe.originalGravity %></div>
+                    </div>
+                </div>
+            <% } %>
+            
+            <% if (recipe.finalGravity) { %>
+                <div class="stat-card">
+                    <div class="stat-indicator" style="background-color: var(--gravity-color);"></div>
+                    <div class="stat-content">
+                        <div class="stat-name">FG</div>
+                        <div class="stat-value"><%= recipe.finalGravity %></div>
+                    </div>
+                </div>
+            <% } %>
+            
+            <% if (recipe.ibu) { %>
+                <div class="stat-card">
+                    <div class="stat-indicator" style="background-color: var(--results-color);"></div>
+                    <div class="stat-content">
+                        <div class="stat-name">IBU</div>
+                        <div class="stat-value"><%= recipe.ibu %></div>
+                    </div>
+                </div>
+            <% } %>
+            
+            <% if (recipe.abv) { %>
+                <div class="stat-card">
+                    <div class="stat-indicator" style="background-color: var(--results-color);"></div>
+                    <div class="stat-content">
+                        <div class="stat-name">ABV</div>
+                        <div class="stat-value"><%= recipe.abv %>%</div>
+                    </div>
+                </div>
+            <% } %>
+            
+            <% if (recipe.color) { %>
+                <div class="stat-card">
+                    <div class="stat-indicator" style="background-color: var(--other-color);"></div>
+                    <div class="stat-content">
+                        <div class="stat-name">Color</div>
+                        <div class="stat-value"><%= recipe.color %> EBC</div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</section>

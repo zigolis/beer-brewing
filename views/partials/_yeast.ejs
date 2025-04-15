@@ -1,0 +1,37 @@
+<section id="yeasts-section" class="card">
+    <h2>Yeasts</h2>
+    <div class="card-content">
+        <% if (recipe.yeasts && recipe.yeasts.length > 0) { %>
+            <div id="yeast-list">
+                <div class="yeast-group">
+                    <% recipe.yeasts.forEach(yeast => { %>
+                        <div class="yeast-card">
+                            <div class="type-indicator" style="background-color: <%= yeastTypeToColor(yeast.type) %>;"></div>
+                            <div class="yeast-content">
+                                <div class="yeast-name"><%= yeast.name %></div>
+                                <div class="yeast-details">
+                                    <% if (yeast.laboratory) { %>
+                                        <span class="laboratory"><%= yeast.laboratory %></span>
+                                    <% } %>
+                                    <% if (yeast.type) { %>
+                                        <span class="type"><%= yeast.type %></span>
+                                    <% } %>
+                                    <% if (yeast.form) { %>
+                                        <span class="form"><%= yeast.form %></span>
+                                    <% } %>
+                                    <% if (yeast.attenuation) { %>
+                                        <span class="attenuation"><%= yeast.attenuation %>% attenuation</span>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="empty-state">
+                <p>No yeasts added to this recipe.</p>
+            </div>
+        <% } %>
+    </div>
+</section>

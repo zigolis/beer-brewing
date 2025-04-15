@@ -1,0 +1,33 @@
+<%- include('layouts/main', { title: 'Beer Recipe Manager' }) %>
+
+    <div class="container">
+        <section class="recipe-loader">
+            <h2>Load Recipe</h2>
+            <p>Import your beer recipe XML file to view all details and brewing information.</p>
+
+            <div id="upload-area" class="upload-area">
+                <p>Drag & drop your XML file here</p>
+                <p>or</p>
+                <input type="file" id="xml-file-input" accept=".xml" style="display: none;">
+                <button id="upload-button" class="btn primary">Select File</button>
+            </div>
+
+            <div id="upload-success" class="alert success" style="display: none;"></div>
+            <div id="upload-error" class="alert error" style="display: none;"></div>
+        </section>
+
+        <section class="recent-recipes">
+            <h2>Recent Recipes</h2>
+            <% if (typeof recipes !=='undefined' && recipes.length> 0) { %>
+                <div class="recipe-grid">
+                    <% recipes.forEach(recipe=> { %>
+                        <%- include('partials/_recipe-card', { recipe: recipe }) %>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <p>No recent recipes found</p>
+            <% } %>
+
+            <a href="/recipes" class="btn secondary">View All Recipes</a>
+        </section>
+    </div>

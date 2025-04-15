@@ -1,0 +1,186 @@
+/**
+ * Beer Recipe Manager - Responsive Layout
+ * Media queries and responsive adjustments
+ */
+
+// Mobile-first approach - default styles are for mobile,
+// then we enhance for larger screens
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: $breakpoint-xs) {
+    .container {
+        padding: $spacing-md;
+    }
+
+    // Adjust recipe cards for small screens
+    .recipe-card {
+        width: 100%;
+    }
+
+    // Adjust stats grid for small screens
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: $breakpoint-sm) {
+    .container {
+        padding: $spacing-lg;
+    }
+
+    // Navigation adjustments
+    .main-nav {
+        display: flex;
+    }
+
+    // Recipe grid for tablets
+    .recipe-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-lg;
+    }
+
+    // Stats grid for tablets
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    // Form layout for tablets
+    .form-group {
+        margin-bottom: $spacing-md;
+    }
+
+    // Ingredient items layout
+    .fermentable-item,
+    .hop-item,
+    .yeast-item,
+    .mash-step-item {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $spacing-md;
+
+        .form-group {
+            margin-bottom: $spacing-sm;
+        }
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: $breakpoint-md) {
+    .container {
+        max-width: $container-max-width;
+        margin: 0 auto;
+    }
+
+    // Recipe grid for desktops
+    .recipe-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    // Stats grid for desktops
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    // Two-column layout for recipe view
+    .recipe-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: $spacing-lg;
+
+        // Full-width sections
+        #general-info,
+        #stats-section {
+            grid-column: 1 / -1;
+        }
+    }
+
+    // Form layout for desktops
+    .recipe-section {
+        margin-bottom: $spacing-xl;
+    }
+
+    // Ingredient items layout
+    .fermentable-item,
+    .hop-item,
+    .yeast-item,
+    .mash-step-item {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: $breakpoint-lg) {
+
+    // Recipe grid for large desktops
+    .recipe-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    // Stats grid for large desktops
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+// Print styles
+@media print {
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        color: #000;
+        background: #fff;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    // Hide non-essential elements
+    .app-header nav,
+    .header-actions,
+    .action-buttons,
+    footer,
+    .btn {
+        display: none !important;
+    }
+
+    // Ensure all content is visible
+    .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        border: 1px solid #ddd;
+        box-shadow: none !important;
+        margin-bottom: 1rem;
+    }
+
+    // Adjust grid layouts for print
+    .recipe-grid,
+    .stats-grid,
+    .recipe-content {
+        display: block;
+    }
+
+    // URLs and abbreviations
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+}
+
+// Accessibility - reduced motion
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

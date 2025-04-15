@@ -1,0 +1,114 @@
+/**
+ * Beer Recipe Manager - Variables
+ * Global variables for consistent styling
+ */
+
+// Color Palette - Brewing-themed colors
+$primary-color: #3f51b5; // Indigo as primary accent
+$primary-light: #757de8;
+$primary-dark: #002984;
+
+// Brewing-themed colors
+$amber-color: #d4a14b; // Amber ale
+$gold-color: #e8c667; // Golden ale
+$brown-color: #8d6e63; // Brown ale
+$copper-color: #b87333; // Copper ale
+$stout-color: #3e2723; // Dark stout
+
+$secondary-color: $amber-color; // Using amber as secondary color
+$secondary-light: $gold-color;
+$secondary-dark: #a67c00;
+
+// UI Colors
+$success-color: #4caf50; // Green
+$warning-color: #ff9800; // Orange
+$danger-color: #f44336; // Red
+$info-color: #2196f3; // Blue
+
+// Neutral Colors
+$white: #ffffff;
+$off-white: #f9f6f0; // Slightly warmer background color
+$light-gray: #f5f5f5;
+$medium-gray: #e0e0e0;
+$dark-gray: #757575;
+$black: #212121;
+
+// Semantic Colors
+$background-color: $off-white;
+$text-color: $black;
+$border-color: $medium-gray;
+$card-background: $white;
+
+// Stats Colors
+$volume-color: $primary-color; // For volume measurements
+$process-color: $brown-color; // For process values
+$gravity-color: $amber-color; // For gravity readings
+$results-color: $success-color; // For results (ABV, IBU)
+$other-color: $copper-color; // For other stats
+
+// Typography
+$font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family-heading: $font-family-base;
+$font-family-mono: 'Courier New', Courier, monospace;
+
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-large: 18px;
+$font-size-xl: 24px;
+$font-size-xxl: 32px;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+$line-height-base: 1.5;
+$line-height-heading: 1.2;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 6px;
+$border-radius-lg: 8px;
+$border-radius-pill: 9999px;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-md: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+$shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+// Transitions
+$transition-fast: 150ms ease;
+$transition-normal: 250ms ease;
+$transition-slow: 350ms ease;
+
+// Breakpoints
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+
+// Container widths
+$container-max-width: 1200px;
+$container-padding: $spacing-md;
+
+// Z-index levels
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-tooltip: 1060;
+
+// Dark mode colors
+$dark-background: #222;
+$dark-card-bg: #333;
+$dark-text: #eee;
+$dark-border: #444;

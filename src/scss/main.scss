@@ -1,0 +1,42 @@
+/**
+ * Beer Recipe Manager - Main Stylesheet
+ * Main entry point for all styles
+ */
+
+// Import utilities first (variables, mixins, functions)
+@import 'utils/variables';
+@import 'utils/mixins';
+
+// Base styles
+//@import 'base';
+
+// Layout components
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/responsive';
+
+// UI components
+@import 'components/stats';
+@import 'components/fermentables';
+@import 'components/hops';
+@import 'components/mash';
+@import 'components/yeast';
+
+// Print styles (optional)
+@media print {
+  header, footer, .action-buttons, .btn {
+    display: none;
+  }
+  
+  body {
+    background-color: white;
+    color: black;
+  }
+  
+  .card {
+    break-inside: avoid;
+    border: 1px solid #ddd;
+    box-shadow: none;
+    margin-bottom: 1rem;
+  }
+}

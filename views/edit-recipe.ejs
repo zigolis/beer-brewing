@@ -1,0 +1,282 @@
+<%- include('layouts/main', { title: 'Edit Recipe' }) %>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>Edit Recipe</h2>
+            <a href="/recipes/<%= recipe._id %>" class="btn secondary">Back to Recipe</a>
+        </div>
+
+        <form id="recipe-form" action="/recipes/<%= recipe._id %>?_method=PUT" method="POST">
+            <div class="recipe-section">
+                <h3>General Information</h3>
+                <div class="form-group">
+                    <label for="name">Recipe Name*</label>
+                    <input type="text" id="name" name="name" value="<%= recipe.name %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="brewer">Brewer</label>
+                    <input type="text" id="brewer" name="brewer" value="<%= recipe.brewer || '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="style">Style</label>
+                    <input type="text" id="style" name="style" value="<%= recipe.style || '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes"><%= recipe.notes || '' %></textarea>
+                </div>
+            </div>
+
+            <div class="recipe-section">
+                <h3>Recipe Statistics</h3>
+                <div class="stats-grid">
+                    <div class="form-group">
+                        <label for="batchSize">Batch Size (L)*</label>
+                        <input type="number" id="batchSize" name="batchSize" step="0.1" min="0"
+                            value="<%= recipe.batchSize %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="boilSize">Boil Size (L)</label>
+                        <input type="number" id="boilSize" name="boilSize" step="0.1" min="0"
+                            value="<%= recipe.boilSize || '' %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="efficiency">Efficiency (%)</label>
+                        <input type="number" id="efficiency" name="efficiency" min="0" max="100"
+                            value="<%= recipe.efficiency || '' %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="originalGravity">Original Gravity</label>
+                        <input type="number" id="originalGravity" name="originalGravity" step="0.001" min="1.000"
+                            value="<%= recipe.originalGravity || '' %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="finalGravity">Final Gravity</label>
+                        <input type="number" id="finalGravity" name="finalGravity" step="0.001" min="0.980"
+                            value="<%= recipe.finalGravity || '' %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="ibu">IBU</label>
+                        <input type="number" id="ibu" name="ibu" step="0.1" min="0" value="<%= recipe.ibu || '' %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="abv">ABV (%)</label>
+                        <input type="number" id="abv" name="abv" step="0.1" min="0" value="<%= recipe.abv || '' %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Color (EBC)</label>
+                        <input type="number" id="color" name="color" step="0.1" min="0"
+                            value="<%= recipe.color || '' %>">
+                    </div>
+                </div>
+            </div>
+
+            <div class="recipe-section">
+                <h3>Fermentables</h3>
+                <div id="fermentables-container">
+                    <% if (recipe.fermentables && recipe.fermentables.length> 0) { %>
+                        <% recipe.fermentables.forEach((fermentable, index)=> { %>
+                            <div class="fermentable-item">
+                                <button type="button" class="remove-item"
+                                    onclick="this.parentElement.remove()">×</button>
+                                <div class="form-group">
+                                    <label for="fermentable-name-<%= index %>">Name*</label>
+                                    <input type="text" id="fermentable-name-<%= index %>"
+                                        name="fermentables[<%= index %>][name]" value="<%= fermentable.name %>"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fermentable-amount-<%= index %>">Amount (kg)*</label>
+                                    <input type="number" id="fermentable-amount-<%= index %>"
+                                        name="fermentables[<%= index %>][amount]" step="0.001" min="0"
+                                        value="<%= fermentable.amount %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fermentable-type-<%= index %>">Type</label>
+                                    <select id="fermentable-type-<%= index %>" name="fermentables[<%= index %>][type]">
+                                        <option value="Grain" <%=fermentable.type==='Grain' ? 'selected' : '' %>>Grain
+                                        </option>
+                                        <option value="Sugar" <%=fermentable.type==='Sugar' ? 'selected' : '' %>>Sugar
+                                        </option>
+                                        <option value="Extract" <%=fermentable.type==='Extract' ? 'selected' : '' %>
+                                            >Extract</option>
+                                        <option value="Dry Extract" <%=fermentable.type==='Dry Extract' ? 'selected'
+                                            : '' %>>Dry Extract</option>
+                                        <option value="Adjunct" <%=fermentable.type==='Adjunct' ? 'selected' : '' %>
+                                            >Adjunct</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fermentable-color-<%= index %>">Color (EBC)</label>
+                                    <input type="number" id="fermentable-color-<%= index %>"
+                                        name="fermentables[<%= index %>][color]" step="0.1" min="0"
+                                        value="<%= fermentable.color || '' %>">
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+                <button type="button" id="add-fermentable" class="add-button">
+                    <span class="material-icons">add</span> Add Fermentable
+                </button>
+            </div>
+
+            <div class="recipe-section">
+                <h3>Hops</h3>
+                <div id="hops-container">
+                    <% if (recipe.hops && recipe.hops.length> 0) { %>
+                        <% recipe.hops.forEach((hop, index)=> { %>
+                            <div class="hop-item">
+                                <button type="button" class="remove-item"
+                                    onclick="this.parentElement.remove()">×</button>
+                                <div class="form-group">
+                                    <label for="hop-name-<%= index %>">Name*</label>
+                                    <input type="text" id="hop-name-<%= index %>" name="hops[<%= index %>][name]"
+                                        value="<%= hop.name %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hop-amount-<%= index %>">Amount (g)*</label>
+                                    <input type="number" id="hop-amount-<%= index %>" name="hops[<%= index %>][amount]"
+                                        step="0.1" min="0" value="<%= hop.amount %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hop-use-<%= index %>">Use</label>
+                                    <select id="hop-use-<%= index %>" name="hops[<%= index %>][use]">
+                                        <option value="Boil" <%=hop.use==='Boil' ? 'selected' : '' %>>Boil</option>
+                                        <option value="Dry Hop" <%=hop.use==='Dry Hop' ? 'selected' : '' %>>Dry Hop
+                                        </option>
+                                        <option value="Mash" <%=hop.use==='Mash' ? 'selected' : '' %>>Mash</option>
+                                        <option value="First Wort" <%=hop.use==='First Wort' ? 'selected' : '' %>>First
+                                            Wort</option>
+                                        <option value="Aroma" <%=hop.use==='Aroma' ? 'selected' : '' %>>Aroma</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hop-time-<%= index %>">Time (min/days)*</label>
+                                    <input type="number" id="hop-time-<%= index %>" name="hops[<%= index %>][time]"
+                                        min="0" value="<%= hop.time %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hop-alpha-<%= index %>">Alpha Acid (%)</label>
+                                    <input type="number" id="hop-alpha-<%= index %>" name="hops[<%= index %>][alpha]"
+                                        step="0.1" min="0" max="100" value="<%= hop.alpha || '' %>">
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+                <button type="button" id="add-hop" class="add-button">
+                    <span class="material-icons">add</span> Add Hop
+                </button>
+            </div>
+
+            <div class="recipe-section">
+                <h3>Yeasts</h3>
+                <div id="yeasts-container">
+                    <% if (recipe.yeasts && recipe.yeasts.length> 0) { %>
+                        <% recipe.yeasts.forEach((yeast, index)=> { %>
+                            <div class="yeast-item">
+                                <button type="button" class="remove-item"
+                                    onclick="this.parentElement.remove()">×</button>
+                                <div class="form-group">
+                                    <label for="yeast-name-<%= index %>">Name*</label>
+                                    <input type="text" id="yeast-name-<%= index %>" name="yeasts[<%= index %>][name]"
+                                        value="<%= yeast.name %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="yeast-type-<%= index %>">Type</label>
+                                    <select id="yeast-type-<%= index %>" name="yeasts[<%= index %>][type]">
+                                        <option value="Ale" <%=yeast.type==='Ale' ? 'selected' : '' %>>Ale</option>
+                                        <option value="Lager" <%=yeast.type==='Lager' ? 'selected' : '' %>>Lager
+                                        </option>
+                                        <option value="Wheat" <%=yeast.type==='Wheat' ? 'selected' : '' %>>Wheat
+                                        </option>
+                                        <option value="Wine" <%=yeast.type==='Wine' ? 'selected' : '' %>>Wine</option>
+                                        <option value="Champagne" <%=yeast.type==='Champagne' ? 'selected' : '' %>
+                                            >Champagne</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="yeast-form-<%= index %>">Form</label>
+                                    <select id="yeast-form-<%= index %>" name="yeasts[<%= index %>][form]">
+                                        <option value="Liquid" <%=yeast.form==='Liquid' ? 'selected' : '' %>>Liquid
+                                        </option>
+                                        <option value="Dry" <%=yeast.form==='Dry' ? 'selected' : '' %>>Dry</option>
+                                        <option value="Slant" <%=yeast.form==='Slant' ? 'selected' : '' %>>Slant
+                                        </option>
+                                        <option value="Culture" <%=yeast.form==='Culture' ? 'selected' : '' %>>Culture
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="yeast-laboratory-<%= index %>">Laboratory</label>
+                                    <input type="text" id="yeast-laboratory-<%= index %>"
+                                        name="yeasts[<%= index %>][laboratory]" value="<%= yeast.laboratory || '' %>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="yeast-attenuation-<%= index %>">Attenuation (%)</label>
+                                    <input type="number" id="yeast-attenuation-<%= index %>"
+                                        name="yeasts[<%= index %>][attenuation]" min="0" max="100"
+                                        value="<%= yeast.attenuation || '' %>">
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+                <button type="button" id="add-yeast" class="add-button">
+                    <span class="material-icons">add</span> Add Yeast
+                </button>
+            </div>
+
+            <div class="recipe-section">
+                <h3>Mash Schedule</h3>
+                <div id="mash-steps-container">
+                    <% if (recipe.mashSteps && recipe.mashSteps.length> 0) { %>
+                        <% recipe.mashSteps.forEach((step, index)=> { %>
+                            <div class="mash-step-item">
+                                <button type="button" class="remove-item"
+                                    onclick="this.parentElement.remove()">×</button>
+                                <div class="form-group">
+                                    <label for="mash-name-<%= index %>">Name*</label>
+                                    <input type="text" id="mash-name-<%= index %>" name="mashSteps[<%= index %>][name]"
+                                        value="<%= step.name %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mash-type-<%= index %>">Type</label>
+                                    <select id="mash-type-<%= index %>" name="mashSteps[<%= index %>][type]">
+                                        <option value="Infusion" <%=step.type==='Infusion' ? 'selected' : '' %>>Infusion
+                                        </option>
+                                        <option value="Temperature" <%=step.type==='Temperature' ? 'selected' : '' %>
+                                            >Temperature</option>
+                                        <option value="Decoction" <%=step.type==='Decoction' ? 'selected' : '' %>
+                                            >Decoction</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mash-temp-<%= index %>">Temperature (°C)*</label>
+                                    <input type="number" id="mash-temp-<%= index %>"
+                                        name="mashSteps[<%= index %>][temperature]" min="0"
+                                        value="<%= step.temperature %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mash-time-<%= index %>">Time (min)*</label>
+                                    <input type="number" id="mash-time-<%= index %>"
+                                        name="mashSteps[<%= index %>][time]" min="0" value="<%= step.time %>" required>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+                <button type="button" id="add-mash-step" class="add-button">
+                    <span class="material-icons">add</span> Add Mash Step
+                </button>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary">Update Recipe</button>
+                <a href="/recipes/<%= recipe._id %>" class="btn secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/recipe-form.js"></script>

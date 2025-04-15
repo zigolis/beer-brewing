@@ -1,0 +1,28 @@
+<section id="mash-section" class="card">
+    <h2>Mash Schedule</h2>
+    <div class="card-content">
+        <% if (recipe.mashSteps && recipe.mashSteps.length > 0) { %>
+            <div id="mash-list">
+                <% recipe.mashSteps.forEach((step, index) => { %>
+                    <div class="mash-step">
+                        <div class="step-indicator"><%= index + 1 %></div>
+                        <div class="mash-content">
+                            <div class="step-name"><%= step.name %></div>
+                            <div class="step-details">
+                                <span class="temperature"><%= step.temperature %>°C</span>
+                                <span class="step-time"><%= step.time %> min</span>
+                                <% if (step.type) { %>
+                                    <span class="step-type"><%= step.type %></span>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="empty-state">
+                <p>No mash steps added to this recipe.</p>
+            </div>
+        <% } %>
+    </div>
+</section>

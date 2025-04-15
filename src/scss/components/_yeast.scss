@@ -1,0 +1,153 @@
+/**
+ * Beer Recipe Manager - Yeast Component Styles
+ * Styling for the yeast section of recipes
+ */
+
+// Yeast section container
+#yeasts-section {
+    margin-bottom: $spacing-lg;
+}
+
+// Yeast list container
+#yeast-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+}
+
+// Yeast group container
+.yeast-group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+}
+
+// Individual yeast card
+.yeast-card {
+    @include ingredient-card;
+
+    // Color indicator based on yeast type
+    .type-indicator {
+        @include color-indicator;
+    }
+
+    // Yeast content container
+    .yeast-content {
+        @include ingredient-content;
+    }
+
+    // Yeast name
+    .yeast-name {
+        @include ingredient-name;
+        font-weight: $font-weight-medium;
+        color: $text-color;
+    }
+
+    // Yeast details
+    .yeast-details {
+        @include ingredient-details;
+
+        // Laboratory
+        .laboratory {
+            background-color: rgba($info-color, 0.1);
+            color: $info-color;
+        }
+
+        // Yeast type
+        .type {
+            background-color: rgba($amber-color, 0.1);
+            color: $amber-color;
+        }
+
+        // Yeast form
+        .form {
+            background-color: rgba($primary-color, 0.1);
+            color: $primary-color;
+        }
+
+        // Attenuation
+        .attenuation {
+            background-color: rgba($success-color, 0.1);
+            color: $success-color;
+        }
+    }
+}
+
+// Empty state
+.empty-state {
+    text-align: center;
+    padding: $spacing-lg;
+    color: $dark-gray;
+    font-style: italic;
+}
+
+// Form styles for yeast items
+.yeast-item {
+    position: relative;
+    background-color: $card-background;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+    box-shadow: $shadow-sm;
+
+    // Remove button
+    .remove-item {
+        position: absolute;
+        top: $spacing-xs;
+        right: $spacing-xs;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: $danger-color;
+        color: $white;
+        border: none;
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color $transition-normal;
+
+        &:hover {
+            background-color: darken($danger-color, 10%);
+        }
+    }
+}
+
+// Dark mode adjustments
+body.dark-mode {
+    .yeast-card {
+        background-color: $dark-card-bg;
+
+        .yeast-name {
+            color: $dark-text;
+        }
+
+        .yeast-details {
+            span {
+                background-color: rgba($dark-background, 0.4);
+            }
+        }
+    }
+
+    .yeast-item {
+        background-color: $dark-card-bg;
+        border-color: $dark-border;
+    }
+}
+
+// Responsive adjustments
+@media (min-width: $breakpoint-md) {
+    .yeast-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-md;
+    }
+}
+
+@media (min-width: $breakpoint-lg) {
+    .yeast-group {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

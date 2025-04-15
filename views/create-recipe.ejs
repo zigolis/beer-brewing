@@ -1,0 +1,271 @@
+<%- include('layouts/main', { title: 'Create Recipe' }) %>
+
+<div class="container">
+  <div class="page-header">
+    <h2>Create New Recipe</h2>
+    <a href="/recipes" class="btn secondary">Back to Recipes</a>
+  </div>
+
+  <form id="recipe-form" action="/recipes" method="POST">
+    <div class="recipe-section">
+      <h3>General Information</h3>
+      <div class="form-group">
+        <label for="name">Recipe Name*</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="brewer">Brewer</label>
+        <input type="text" id="brewer" name="brewer">
+      </div>
+      <div class="form-group">
+        <label for="style">Style</label>
+        <input type="text" id="style" name="style">
+      </div>
+      <div class="form-group">
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes"></textarea>
+      </div>
+    </div>
+
+    <div class="recipe-section">
+      <h3>Recipe Statistics</h3>
+      <div class="stats-grid">
+        <div class="form-group">
+          <label for="batchSize">Batch Size (L)*</label>
+          <input type="number" id="batchSize" name="batchSize" step="0.1" min="0" required>
+        </div>
+        <div class="form-group">
+          <label for="boilSize">Boil Size (L)</label>
+          <input type="number" id="boilSize" name="boilSize" step="0.1" min="0">
+        </div>
+        <div class="form-group">
+          <label for="efficiency">Efficiency (%)</label>
+          <input type="number" id="efficiency" name="efficiency" min="0" max="100">
+        </div>
+        <div class="form-group">
+          <label for="originalGravity">Original Gravity</label>
+          <input type="number" id="originalGravity" name="originalGravity" step="0.001" min="1.000">
+        </div>
+        <div class="form-group">
+          <label for="finalGravity">Final Gravity</label>
+          <input type="number" id="finalGravity" name="finalGravity" step="0.001" min="0.980">
+        </div>
+        <div class="form-group">
+          <label for="ibu">IBU</label>
+          <input type="number" id="ibu" name="ibu" step="0.1" min="0">
+        </div>
+        <div class="form-group">
+          <label for="abv">ABV (%)</label>
+          <input type="number" id="abv" name="abv" step="0.1" min="0">
+        </div>
+        <div class="form-group">
+          <label for="color">Color (EBC)</label>
+          <input type="number" id="color" name="color" step="0.1" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-section">
+      <h3>Fermentables</h3>
+      <div id="fermentables-container"></div>
+      <button type="button" id="add-fermentable" class="add-button">
+        <span class="material-icons">add</span> Add Fermentable
+      </button>
+    </div>
+
+    <div class="recipe-section">
+      <h3>Hops</h3>
+      <div id="hops-container"></div>
+      <button type="button" id="add-hop" class="add-button">
+        <span class="material-icons">add</span> Add Hop
+      </button>
+    </div>
+
+    <div class="recipe-section">
+      <h3>Yeasts</h3>
+      <div id="yeasts-container"></div>
+      <button type="button" id="add-yeast" class="add-button">
+        <span class="material-icons">add</span> Add Yeast
+      </button>
+    </div>
+
+    <div class="recipe-section">
+      <h3>Mash Schedule</h3>
+      <div id="mash-steps-container"></div>
+      <button type="button" id="add-mash-step" class="add-button">
+        <span class="material-icons">add</span> Add Mash Step
+      </button>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">Save Recipe</button>
+      <button type="button" class="btn secondary" onclick="window.location.href='/recipes'">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<script src="/js/recipe-form.js"></script>
+<!-- <script src="/js/recipe-loader.js"></script> -->
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let fermentableCount = 0;
+    let hopCount = 0;
+    let yeastCount = 0;
+    let mashStepCount = 0;
+    
+    // Add ingredient buttons
+    document.getElementById('add-fermentable').addEventListener('click', addFermentable);
+    document.getElementById('add-hop').addEventListener('click', addHop);
+    document.getElementById('add-yeast').addEventListener('click', addYeast);
+    document.getElementById('add-mash-step').addEventListener('click', addMashStep);
+    
+    // Add at least one of each ingredient type on page load
+    addFermentable();
+    addHop();
+    addYeast();
+    addMashStep();
+    
+    function addFermentable() {
+      const container = document.getElementById('fermentables-container');
+      const fermentableHtml = `
+        <div class="fermentable-item">
+          <button type="button" class="remove-item" onclick="this.parentElement.remove()">×</button>
+          <div class="form-group">
+            <label for="fermentable-name-${fermentableCount}">Name*</label>
+            <input type="text" id="fermentable-name-${fermentableCount}" name="fermentables[${fermentableCount}][name]" required>
+          </div>
+          <div class="form-group">
+            <label for="fermentable-amount-${fermentableCount}">Amount (kg)*</label>
+            <input type="number" id="fermentable-amount-${fermentableCount}" name="fermentables[${fermentableCount}][amount]" step="0.001" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="fermentable-type-${fermentableCount}">Type</label>
+            <select id="fermentable-type-${fermentableCount}" name="fermentables[${fermentableCount}][type]">
+              <option value="Grain">Grain</option>
+              <option value="Sugar">Sugar</option>
+              <option value="Extract">Extract</option>
+              <option value="Dry Extract">Dry Extract</option>
+              <option value="Adjunct">Adjunct</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fermentable-color-${fermentableCount}">Color (EBC)</label>
+            <input type="number" id="fermentable-color-${fermentableCount}" name="fermentables[${fermentableCount}][color]" step="0.1" min="0">
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', fermentableHtml);
+      fermentableCount++;
+    }
+    
+    function addHop() {
+      const container = document.getElementById('hops-container');
+      const hopHtml = `
+        <div class="hop-item">
+          <button type="button" class="remove-item" onclick="this.parentElement.remove()">×</button>
+          <div class="form-group">
+            <label for="hop-name-${hopCount}">Name*</label>
+            <input type="text" id="hop-name-${hopCount}" name="hops[${hopCount}][name]" required>
+          </div>
+          <div class="form-group">
+            <label for="hop-amount-${hopCount}">Amount (g)*</label>
+            <input type="number" id="hop-amount-${hopCount}" name="hops[${hopCount}][amount]" step="0.1" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="hop-use-${hopCount}">Use</label>
+            <select id="hop-use-${hopCount}" name="hops[${hopCount}][use]">
+              <option value="Boil">Boil</option>
+              <option value="Dry Hop">Dry Hop</option>
+              <option value="Mash">Mash</option>
+              <option value="First Wort">First Wort</option>
+              <option value="Aroma">Aroma</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="hop-time-${hopCount}">Time (min/days)*</label>
+            <input type="number" id="hop-time-${hopCount}" name="hops[${hopCount}][time]" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="hop-alpha-${hopCount}">Alpha Acid (%)</label>
+            <input type="number" id="hop-alpha-${hopCount}" name="hops[${hopCount}][alpha]" step="0.1" min="0" max="100">
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', hopHtml);
+      hopCount++;
+    }
+    
+    function addYeast() {
+      const container = document.getElementById('yeasts-container');
+      const yeastHtml = `
+        <div class="yeast-item">
+          <button type="button" class="remove-item" onclick="this.parentElement.remove()">×</button>
+          <div class="form-group">
+            <label for="yeast-name-${yeastCount}">Name*</label>
+            <input type="text" id="yeast-name-${yeastCount}" name="yeasts[${yeastCount}][name]" required>
+          </div>
+          <div class="form-group">
+            <label for="yeast-type-${yeastCount}">Type</label>
+            <select id="yeast-type-${yeastCount}" name="yeasts[${yeastCount}][type]">
+              <option value="Ale">Ale</option>
+              <option value="Lager">Lager</option>
+              <option value="Wheat">Wheat</option>
+              <option value="Wine">Wine</option>
+              <option value="Champagne">Champagne</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="yeast-form-${yeastCount}">Form</label>
+            <select id="yeast-form-${yeastCount}" name="yeasts[${yeastCount}][form]">
+              <option value="Liquid">Liquid</option>
+              <option value="Dry">Dry</option>
+              <option value="Slant">Slant</option>
+              <option value="Culture">Culture</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="yeast-laboratory-${yeastCount}">Laboratory</label>
+            <input type="text" id="yeast-laboratory-${yeastCount}" name="yeasts[${yeastCount}][laboratory]">
+          </div>
+          <div class="form-group">
+            <label for="yeast-attenuation-${yeastCount}">Attenuation (%)</label>
+            <input type="number" id="yeast-attenuation-${yeastCount}" name="yeasts[${yeastCount}][attenuation]" min="0" max="100">
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', yeastHtml);
+      yeastCount++;
+    }
+    
+    function addMashStep() {
+      const container = document.getElementById('mash-steps-container');
+      const mashStepHtml = `
+        <div class="mash-step-item">
+          <button type="button" class="remove-item" onclick="this.parentElement.remove()">×</button>
+          <div class="form-group">
+            <label for="mash-name-${mashStepCount}">Name*</label>
+            <input type="text" id="mash-name-${mashStepCount}" name="mashSteps[${mashStepCount}][name]" required>
+          </div>
+          <div class="form-group">
+            <label for="mash-type-${mashStepCount}">Type</label>
+            <select id="mash-type-${mashStepCount}" name="mashSteps[${mashStepCount}][type]">
+              <option value="Infusion">Infusion</option>
+              <option value="Temperature">Temperature</option>
+              <option value="Decoction">Decoction</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mash-temp-${mashStepCount}">Temperature (°C)*</label>
+            <input type="number" id="mash-temp-${mashStepCount}" name="mashSteps[${mashStepCount}][temperature]" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="mash-time-${mashStepCount}">Time (min)*</label>
+            <input type="number" id="mash-time-${mashStepCount}" name="mashSteps[${mashStepCount}][time]" min="0" required>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', mashStepHtml);
+      mashStepCount++;
+    }
+  });
+</script> -->

@@ -1,0 +1,216 @@
+/**
+ * Beer Recipe Manager - Mixins
+ * Reusable SCSS mixins for consistent styling
+ */
+
+// Flexbox helpers
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: $wrap;
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// Grid helpers
+@mixin grid($columns: 1fr, $gap: $spacing-md) {
+    display: grid;
+    grid-template-columns: $columns;
+    gap: $gap;
+}
+
+// Card styling
+@mixin card {
+    background-color: $card-background;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-sm;
+    padding: $spacing-md;
+    transition: box-shadow $transition-normal;
+
+    &:hover {
+        box-shadow: $shadow-md;
+    }
+}
+
+// Typography helpers
+@mixin heading($size: $font-size-xl, $weight: $font-weight-bold, $margin: $spacing-md 0) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line-height-heading;
+    margin: $margin;
+}
+
+@mixin truncate($lines: 1) {
+    @if $lines ==1 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    @else {
+        display: -webkit-box;
+        -webkit-line-clamp: $lines;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+// Button styles
+@mixin button-base {
+    display: inline-block;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-md;
+    font-weight: $font-weight-medium;
+    text-align: center;
+    cursor: pointer;
+    transition: all $transition-normal;
+    border: none;
+    outline: none;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+@mixin button-primary {
+    @include button-base;
+    background-color: $primary-color;
+    color: $white;
+
+    &:hover,
+    &:focus {
+        background-color: $primary-dark;
+    }
+}
+
+@mixin button-secondary {
+    @include button-base;
+    background-color: $secondary-color;
+    color: $white;
+
+    &:hover,
+    &:focus {
+        background-color: $secondary-dark;
+    }
+}
+
+@mixin button-outline {
+    @include button-base;
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+
+    &:hover,
+    &:focus {
+        background-color: rgba($primary-color, 0.1);
+    }
+}
+
+// Media queries
+@mixin breakpoint-up($breakpoint) {
+    @media screen and (min-width: $breakpoint) {
+        @content;
+    }
+}
+
+@mixin breakpoint-down($breakpoint) {
+    @media screen and (max-width: $breakpoint - 1px) {
+        @content;
+    }
+}
+
+// Dark mode
+@mixin dark-mode {
+    background-color: $dark-background;
+    color: $dark-text;
+
+    .card {
+        background-color: $dark-card-bg;
+        border-color: $dark-border;
+    }
+}
+
+// Accessibility
+@mixin visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@mixin focus-outline {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+}
+
+// Animation
+@mixin fade-in($duration: 0.3s) {
+    animation: fadeIn $duration ease-in;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+// Recipe-specific mixins
+@mixin ingredient-card {
+    @include card;
+    display: flex;
+    margin-bottom: $spacing-sm;
+    overflow: hidden;
+}
+
+@mixin color-indicator($width: 12px) {
+    width: $width;
+    min-height: 100%;
+    flex-shrink: 0;
+}
+
+@mixin ingredient-content {
+    flex: 1;
+    padding: $spacing-sm $spacing-md;
+}
+
+@mixin ingredient-name {
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-xs;
+}
+
+@mixin ingredient-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    font-size: $font-size-small;
+    color: $dark-gray;
+
+    span {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: $border-radius-sm;
+        background-color: $light-gray;
+    }
+}
