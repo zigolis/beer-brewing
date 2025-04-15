@@ -5,23 +5,21 @@
                 <div class="upload-header">
                     <div class="upload-icon">
                         <svg viewBox="0 0 24 24" width="32" height="32">
-                            <path
-                                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13.5,19A1.5,1.5 0 0,1 12,17.5A1.5,1.5 0 0,1 13.5,16A1.5,1.5 0 0,1 15,17.5A1.5,1.5 0 0,1 13.5,19M13,9V3.5L18.5,9H13Z"
-                                fill="var(--amber-color)" />
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13.5,19A1.5,1.5 0 0,1 12,17.5A1.5,1.5 0 0,1 13.5,16A1.5,1.5 0 0,1 15,17.5A1.5,1.5 0 0,1 13.5,19M13,9V3.5L18.5,9H13Z" fill="var(--amber-color)" />
                         </svg>
                     </div>
                     <h3>Load Another Recipe</h3>
                 </div>
+
                 <div class="upload-content">
-                    <p class="upload-instructions">Import your beer recipe XML file to view all details and brewing
-                        information.</p>
+                    <p class="upload-instructions">Import your beer recipe XML file to view all details and brewing information.</p>
+                    
                     <div class="upload-dropzone" id="upload-dropzone">
-                        <input type="file" id="file-input" class="file-input" accept=".xml" />
+                        <input type="file" id="file-input" name="file" class="file-input" accept=".xml" />
                         <div class="dropzone-content">
                             <div class="dropzone-icon">
                                 <svg viewBox="0 0 24 24" width="48" height="48">
-                                    <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"
-                                        fill="var(--primary-color)" />
+                                    <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z" fill="var(--primary-color)" />
                                 </svg>
                             </div>
                             <p class="dropzone-text">Drag & drop your XML file here</p>
@@ -29,6 +27,7 @@
                             <button class="browse-button ripple" id="browse-button">Browse Files</button>
                         </div>
                     </div>
+
                     <div class="recent-recipes">
                         <h4>Recent Recipes</h4>
                         <div class="recipe-history" id="recipe-history">
@@ -37,6 +36,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="upload-status">
                     <div id="upload-success" class="upload-success">
                         <svg viewBox="0 0 24 24" width="20" height="20">
@@ -44,14 +44,19 @@
                                 d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"
                                 fill="#4CAF50" />
                         </svg>
+                        <span>Recipe loaded successfully!</span>
                     </div>
+
                     <div id="upload-error" class="upload-error">
                         <svg viewBox="0 0 24 24" width="20" height="20">
                             <path
                                 d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
                                 fill="var(--error-color)" />
                         </svg>
+                        <span>Error loading recipe. Please check the file format.</span>
                     </div>
+
+                    <div id="recipe-details"></div>
                 </div>
             </div>
         </div>

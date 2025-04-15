@@ -5,6 +5,9 @@
 
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 const recipeController = require('../controllers/recipeController');
 const fileUpload = require('../middlewares/fileUpload');
 
@@ -30,7 +33,7 @@ router.put('/:id', recipeController.updateRecipe);
 router.delete('/:id', recipeController.deleteRecipe);
 
 // POST /recipes/upload - Upload and process XML recipe file
-router.post('/upload', fileUpload.single('xmlFile'), recipeController.uploadXmlFile);
+router.post('/upload', upload.single('file'), recipeController.uploadRecipe);
 
 // GET /recipes/:id/download - Download recipe as XML
 router.get('/:id/download', recipeController.downloadRecipeXml);

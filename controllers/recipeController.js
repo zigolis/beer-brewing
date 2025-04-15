@@ -3,8 +3,8 @@
  * Handles all recipe-related operations
  */
 
+const { parseRecipeXML } = require('../utils/xmlParser');
 const Recipe = require('../models/Recipe');
-const xmlParser = require('../utils/xmlParser');
 const recipeHelpers = require('../utils/recipeHelpers');
 const fs = require('fs');
 const path = require('path');
@@ -157,48 +157,31 @@ exports.deleteRecipe = async (req, res) => {
     }
 };
 
-// Upload and process XML file
-exports.uploadXmlFile = async (req, res) => {
+// exports.uploadRecipe = (req, res) => {
+//     if (!req.file) {
+//         return res.status(400).json({ error: 'No file uploaded' });
+//     }
+//     // Parse and process the XML file here (req.file.path)
+//     // For now, just send success
+//     res.json({ success: true, filename: req.file.originalname });
+// };
+
+exports.uploadRecipe = async (req, res) => {
     try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
-        }
+        if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
-        // Read the uploaded file
-        const xmlFilePath = req.file.path;
-        const xmlContent = fs.readFileSync(xmlFilePath, 'utf8');
+        const xmlString = fs.readFileSync(req.file.path, 'utf-8');
+        const recipes = parseRecipeXML(xmlString);
 
-        // Parse XML to recipe object
-        const recipeData = await xmlParser.xmlToRecipe(xmlContent);
+        // Save to MongoDB (see next step)
+        const savedRecipes = await Recipe.insertMany(recipes);
 
-        // Create new recipe document
-        const newRecipe = new Recipe({
-            ...recipeData,
-            xmlContent // Store original XML for potential download
-        });
+        // Optionally, delete the uploaded file after parsing
+        fs.unlinkSync(req.file.path);
 
-        await newRecipe.save();
-
-        // Clean up the uploaded file
-        fs.unlinkSync(xmlFilePath);
-
-        // Return success response
-        return res.status(200).json({
-            success: true,
-            message: 'Recipe uploaded successfully',
-            recipeId: newRecipe._id
-        });
-    } catch (error) {
-        console.error('Error processing XML file:', error);
-
-        // Clean up the uploaded file if it exists
-        if (req.file && req.file.path) {
-            fs.unlinkSync(req.file.path);
-        }
-
-        return res.status(400).json({
-            error: error.message || 'Failed to process XML file'
-        });
+        res.json({ success: true, recipes: savedRecipes });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to parse or save recipe.' });
     }
 };
 
