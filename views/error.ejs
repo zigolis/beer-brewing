@@ -1,0 +1,10 @@
+<%- include('partials/_header', { title: 'Error' }) %>
+
+<div class="container">
+  <h2>Something went wrong</h2>
+  <p>
+    <%= typeof error !== 'undefined' && error.message ? error.message : "An unexpected error occurred." %>
+  </p>
+</div>
+
+<%- include('partials/_footer') %>

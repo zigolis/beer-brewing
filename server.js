@@ -20,8 +20,7 @@ connectDB();
 // Set view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.set('layout', 'layouts/main');
-app.use(expressLayouts);
+app.set('index', { title: 'Beer Recipe Manager' });
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -53,11 +52,13 @@ app.use((req, res) => {
 // Error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).render('error', {
-        title: 'Server Error',
-        message: 'Something went wrong on our end.',
-        error: process.env.NODE_ENV === 'development' ? err : {}
-    });
+    // res.status(500).render('error', {
+    //     title: 'Server Error',
+    //     message: 'Something went wrong on our end.',
+    //     error: process.env.NODE_ENV === 'development' ? err : {}
+    // });
+    res.status(err.status || 500);
+    res.render('error', { error: err || {} });
 });
 
 // Start server
