@@ -1,0 +1,194 @@
+:root {
+    /* Updated color palette with brewing themes */
+    --primary-color: #3f51b5;
+    /* Keeping indigo as an accent */
+    --primary-light: #757de8;
+    --primary-dark: #002984;
+
+    /* New brewing-themed colors */
+    --amber-color: #d4a14b;
+    /* Amber ale */
+    --gold-color: #e8c667;
+    /* Golden ale */
+    --brown-color: #8d6e63;
+    /* Brown ale */
+    --copper-color: #b87333;
+    /* Copper ale */
+    --stout-color: #3e2723;
+    /* Dark stout */
+
+    --secondary-color: #d4a14b;
+    /* Changed from orange to amber */
+    --secondary-light: #e8c667;
+    /* Light gold */
+    --secondary-dark: #a67c00;
+    /* Dark amber */
+
+    --surface-color: #ffffff;
+    --background-color: #f9f6f0;
+    /* Slightly warmer background color */
+    --card-background: #fffcf5;
+    /* Warm off-white for cards */
+    --error-color: #f44336;
+
+    --text-on-primary: #3f51b5;
+    --text-on-title: #ffffff;
+    --text-primary: #666666;
+    --text-secondary: #000000;
+    --text-accent: #8d6e63;
+    /* Brown text for accents */
+
+    --border-radius: 6px;
+    /* Slightly increased border radius */
+    --card-shadow: 0 2px 5px 0 rgba(0, 0, 0, .12), 0 2px 10px 0 rgba(0, 0, 0, .08);
+    --elevation-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.1), 0 3px 14px 2px rgba(0, 0, 0, 0.08), 0 5px 5px -3px rgba(0, 0, 0, 0.15);
+
+    /* Stats colors updated to brewing themes */
+    --volume-color: #3f51b5;
+    /* Keep indigo for volume */
+    --process-color: #8d6e63;
+    /* Brown for process */
+    --gravity-color: #d4a14b;
+    /* Amber for gravity */
+    --results-color: #4CAF50;
+    /* Keep green for results */
+    --other-color: #b87333;
+    /* Copper for other stats */
+
+    /* Updated typography */
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+}
+
+/* Base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+    /* Updated sans-serif font */
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    /* Add subtle texture background */
+    background-repeat: repeat;
+}
+
+/* Updated heading styles with serif font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-primary);
+    letter-spacing: 0.01em;
+}
+
+h1,
+.card h1,
+header h1 {
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: 0.02em;
+    color: var(--text-on-title);
+}
+
+h2,
+.card h2,
+.section-title {
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+/* Ensure body text uses Montserrat */
+body,
+p,
+.info-value,
+.stat-value {
+    font-family: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+}
+
+/* Container with slightly more padding */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* Update card styling for better contrast */
+.card {
+    background-color: var(--card-background);
+}
+
+/* Increase contrast for stat values */
+.stat-value {
+    color: var(--stout-color);
+    /* Darker color for better contrast */
+    font-weight: 600;
+    /* Make it bolder */
+}
+
+/* Material ripple effect */
+.ripple {
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+}
+
+.ripple:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+}
+
+.ripple:active:after {
+    transform: scale(0, 0);
+    opacity: .3;
+    transition: 0s;
+}
+
+/* Animations */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#recipe-content {
+    animation: fadeIn 0.5s ease-out;
+}

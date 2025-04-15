@@ -8,7 +8,7 @@
 @import 'utils/mixins';
 
 // Base styles
-//@import 'base';
+@import 'utils/base';
 
 // Layout components
 @import 'layout/header';
@@ -16,6 +16,7 @@
 @import 'layout/responsive';
 
 // UI components
+@import 'components/upload';
 @import 'components/stats';
 @import 'components/fermentables';
 @import 'components/hops';

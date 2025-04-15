@@ -1,35 +1,60 @@
-<%- include('partials/_header', { title: 'Beer Recipe Manager' }) %>
-
+<%- include('partials/_header', { title: 'iBeer Brewing' }) %>
     <div class="container">
-        <section class="recipe-loader">
-            <h2>Load Recipe</h2>
-            <p>Import your beer recipe XML file to view all details and brewing information.</p>
-
-            <div id="upload-area" class="upload-area">
-                <p>Drag & drop your XML file here</p>
-                <p>or</p>
-                <input type="file" id="xml-file-input" accept=".xml" style="display: none;">
-                <button id="upload-button" class="btn primary">Select File</button>
-            </div>
-
-            <div id="upload-success" class="alert success" style="display: none;"></div>
-            <div id="upload-error" class="alert error" style="display: none;"></div>
-        </section>
-
-        <section class="recent-recipes">
-            <h2>Recent Recipes</h2>
-            <% if (typeof recipes !=='undefined' && recipes.length> 0) { %>
-                <div class="recipe-grid">
-                    <% recipes.forEach(recipe=> { %>
-                        <%- include('partials/_recipe-card', { recipe: recipe }) %>
-                    <% }); %>
+        <div class="recipe-upload-section">
+            <div class="upload-card">
+                <div class="upload-header">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32">
+                            <path
+                                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13.5,19A1.5,1.5 0 0,1 12,17.5A1.5,1.5 0 0,1 13.5,16A1.5,1.5 0 0,1 15,17.5A1.5,1.5 0 0,1 13.5,19M13,9V3.5L18.5,9H13Z"
+                                fill="var(--amber-color)" />
+                        </svg>
+                    </div>
+                    <h3>Load Another Recipe</h3>
                 </div>
-            <% } else { %>
-                <p>No recent recipes found</p>
-            <% } %>
-
-            <a href="/recipes" class="btn secondary">View All Recipes</a>
-        </section>
+                <div class="upload-content">
+                    <p class="upload-instructions">Import your beer recipe XML file to view all details and brewing
+                        information.</p>
+                    <div class="upload-dropzone" id="upload-dropzone">
+                        <input type="file" id="file-input" class="file-input" accept=".xml" />
+                        <div class="dropzone-content">
+                            <div class="dropzone-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48">
+                                    <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"
+                                        fill="var(--primary-color)" />
+                                </svg>
+                            </div>
+                            <p class="dropzone-text">Drag & drop your XML file here</p>
+                            <p class="dropzone-subtext">or</p>
+                            <button class="browse-button ripple" id="browse-button">Browse Files</button>
+                        </div>
+                    </div>
+                    <div class="recent-recipes">
+                        <h4>Recent Recipes</h4>
+                        <div class="recipe-history" id="recipe-history">
+                            <!-- Recent recipes will be populated here via JavaScript -->
+                            <p class="no-history">No recent recipes found</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="upload-status">
+                    <div id="upload-success" class="upload-success">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path
+                                d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"
+                                fill="#4CAF50" />
+                        </svg>
+                    </div>
+                    <div id="upload-error" class="upload-error">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path
+                                d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+                                fill="var(--error-color)" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 <%- include('partials/_footer') %>

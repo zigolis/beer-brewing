@@ -97,7 +97,7 @@ const dev = series(build, parallel(nodemonServer, browserSyncInit, watchFiles));
 // Export tasks
 exports.styles = styles;
 exports.scripts = scripts;
+exports.watch = watchFiles;
 exports.build = build;
 exports.dev = dev;
 exports.default = build;
-

@@ -49,21 +49,15 @@ app.use((req, res) => {
     });
 });
 
-// Error handler
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    // res.status(500).render('error', {
-    //     title: 'Server Error',
-    //     message: 'Something went wrong on our end.',
-    //     error: process.env.NODE_ENV === 'development' ? err : {}
-    // });
-    res.status(err.status || 500);
-    res.render('error', { error: err || {} });
-});
-
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`http://localhost:${PORT}`);
+});
+
+// Error handler 
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.render('error', { error: err || {} });
 });
