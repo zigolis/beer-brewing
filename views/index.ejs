@@ -1,25 +1,42 @@
 <%- include('partials/_header', { title: 'iBeer Brewing' }) %>
     <div class="container">
+
+        <div class="recipe-upload-section" id="recipe-general-section">
+            <div class="upload-card">
+                <div class="upload-header">
+                    <h3>General Information</h3>
+                </div>
+
+                <div class="upload-content">
+                    <div id="recipe-details"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="recipe-upload-section">
             <div class="upload-card">
                 <div class="upload-header">
                     <div class="upload-icon">
                         <svg viewBox="0 0 24 24" width="32" height="32">
-                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13.5,19A1.5,1.5 0 0,1 12,17.5A1.5,1.5 0 0,1 13.5,16A1.5,1.5 0 0,1 15,17.5A1.5,1.5 0 0,1 13.5,19M13,9V3.5L18.5,9H13Z" fill="var(--amber-color)" />
+                            <path
+                                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13.5,19A1.5,1.5 0 0,1 12,17.5A1.5,1.5 0 0,1 13.5,16A1.5,1.5 0 0,1 15,17.5A1.5,1.5 0 0,1 13.5,19M13,9V3.5L18.5,9H13Z"
+                                fill="var(--amber-color)" />
                         </svg>
                     </div>
                     <h3>Load Another Recipe</h3>
                 </div>
 
                 <div class="upload-content">
-                    <p class="upload-instructions">Import your beer recipe XML file to view all details and brewing information.</p>
-                    
+                    <p class="upload-instructions">Import your beer recipe XML file to view all details and brewing
+                        information.</p>
+
                     <div class="upload-dropzone" id="upload-dropzone">
                         <input type="file" id="file-input" name="file" class="file-input" accept=".xml" />
                         <div class="dropzone-content">
                             <div class="dropzone-icon">
                                 <svg viewBox="0 0 24 24" width="48" height="48">
-                                    <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z" fill="var(--primary-color)" />
+                                    <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"
+                                        fill="var(--primary-color)" />
                                 </svg>
                             </div>
                             <p class="dropzone-text">Drag & drop your XML file here</p>
@@ -55,11 +72,9 @@
                         </svg>
                         <span>Error loading recipe. Please check the file format.</span>
                     </div>
-
-                    <div id="recipe-details"></div>
                 </div>
             </div>
         </div>
     </div>
 
-<%- include('partials/_footer') %>
+    <%- include('partials/_footer') %>

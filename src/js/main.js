@@ -1,6 +1,15 @@
 // Theme toggle
 document.addEventListener('DOMContentLoaded', function () {
     const themeToggle = document.getElementById('theme-toggle');
+    const dropzone = document.getElementById('upload-dropzone');
+    const fileInput = document.getElementById('file-input');
+    const browseButton = document.getElementById('browse-button');
+    const uploadSuccess = document.getElementById('upload-success');
+    const uploadError = document.getElementById('upload-error');
+    const recipeDetails = document.getElementById('recipe-details');
+    const recipeGeneral = document.getElementById('recipe-general-section');
+
+    // Theme toggle button
     if (themeToggle) {
         themeToggle.addEventListener('click', function () {
             document.body.classList.toggle('dark-theme');
@@ -17,13 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.classList.add('dark-theme');
         }
     }
-
-    const dropzone = document.getElementById('upload-dropzone');
-    const fileInput = document.getElementById('file-input');
-    const browseButton = document.getElementById('browse-button');
-    const uploadSuccess = document.getElementById('upload-success');
-    const uploadError = document.getElementById('upload-error');
-    const recipeDetails = document.getElementById('recipe-details');
 
     // Helper: Show/hide status messages
     function showStatus(type, message) {
