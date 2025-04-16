@@ -1,0 +1,27 @@
+.ingredient-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.remove-btn {
+  background: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  // padding: 24px;
+  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.08);
+}
+
+.btn {
+  margin-top: 8px;
+}

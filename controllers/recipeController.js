@@ -27,28 +27,18 @@ exports.getAllRecipes = async (req, res) => {
     }
 };
 
-// Get recipe by ID
 exports.getRecipeById = async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
-
         if (!recipe) {
-            return res.status(404).render('error', {
-                message: 'Recipe not found'
-            });
+            return res.status(404).render('error', { error: { message: 'Recipe not found' } });
         }
-
         res.render('view-recipe', {
-            title: recipe.name,
-            recipe: recipe.toObject(),
-            helpers: recipeHelpers
+            recipe,
+            helpers: recipeHelpers 
         });
-    } catch (error) {
-        console.error('Error fetching recipe:', error);
-        res.status(500).render('error', {
-            message: 'Failed to load recipe',
-            error
-        });
+    } catch (err) {
+        res.status(500).render('error', { error: err });
     }
 };
 
@@ -156,15 +146,6 @@ exports.deleteRecipe = async (req, res) => {
         });
     }
 };
-
-// exports.uploadRecipe = (req, res) => {
-//     if (!req.file) {
-//         return res.status(400).json({ error: 'No file uploaded' });
-//     }
-//     // Parse and process the XML file here (req.file.path)
-//     // For now, just send success
-//     res.json({ success: true, filename: req.file.originalname });
-// };
 
 exports.uploadRecipe = async (req, res) => {
     try {

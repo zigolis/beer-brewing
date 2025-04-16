@@ -6,21 +6,18 @@
                 <div class="yeast-group">
                     <% recipe.yeasts.forEach(yeast => { %>
                         <div class="yeast-card">
-                            <div class="type-indicator" style="background-color: <%= yeastTypeToColor(yeast.type) %>;"></div>
+                            <div class="type-indicator" style="background-color: <%= yeastTypeToColor(yeast.TYPE) %>;"></div>
                             <div class="yeast-content">
-                                <div class="yeast-name"><%= yeast.name %></div>
+                                <div class="yeast-name"><%= yeast.NAME %></div>
                                 <div class="yeast-details">
-                                    <% if (yeast.laboratory) { %>
-                                        <span class="laboratory"><%= yeast.laboratory %></span>
-                                    <% } %>
                                     <% if (yeast.type) { %>
-                                        <span class="type"><%= yeast.type %></span>
+                                        <span class="type"><%= yeast.TYPE %></span>
                                     <% } %>
-                                    <% if (yeast.form) { %>
-                                        <span class="form"><%= yeast.form %></span>
+                                    <% if (yeast.FORM) { %>
+                                        <span class="form"><%= yeast.FORM %></span>
                                     <% } %>
-                                    <% if (yeast.attenuation) { %>
-                                        <span class="attenuation"><%= yeast.attenuation %>% attenuation</span>
+                                    <% if (yeast.AMOUNT) { %>
+                                        <span class="attenuation"><%= yeast.AMOUNT %></span>
                                     <% } %>
                                 </div>
                             </div>

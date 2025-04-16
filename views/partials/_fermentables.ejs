@@ -5,16 +5,16 @@
             <div id="fermentables-list">
                 <% recipe.fermentables.forEach(fermentable => { %>
                     <div class="fermentable-card">
-                        <div class="color-indicator" style="background-color: <%= ebcToColor(fermentable.color) %>;"></div>
+                        <div class="color-indicator" style="background-color: <%= ebcToColor(fermentable.COLOR) %>;"></div>
                         <div class="fermentable-content">
-                            <div class="fermentable-name"><%= fermentable.name %></div>
+                            <div class="fermentable-name"><%= fermentable.NAME %></div>
                             <div class="fermentable-details">
-                                <span class="amount"><%= fermentable.amount %> kg</span>
-                                <% if (fermentable.type) { %>
-                                    <span class="type"><%= fermentable.type %></span>
+                                <span class="amount"><%= fermentable.AMOUNT %> kg</span>
+                                <% if (fermentable.TYPE) { %>
+                                    <span class="type"><%= fermentable.TYPE %></span>
                                 <% } %>
-                                <% if (fermentable.color) { %>
-                                    <span class="color"><%= fermentable.color %> EBC</span>
+                                <% if (fermentable.COLOR) { %>
+                                    <span class="color"><%= fermentable.COLOR %> EBC</span>
                                 <% } %>
                             </div>
                         </div>

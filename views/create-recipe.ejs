@@ -1,12 +1,12 @@
-<%- include('partials/_header', { title: 'Beer Recipe Manager' }) %>
+<%- include('partials/_header', { title: 'Create New Recipe' }) %>
 
-<div class="container">
-  <div class="page-header">
-    <h2>Create New Recipe</h2>
-    <a href="/recipes" class="btn secondary">Back to Recipes</a>
-  </div>
+  <div class="container">
+    <div class="page-header">
+      <h2>Create New Recipe</h2>
+      <a href="/recipes" class="btn secondary">Back to Recipes</a>
+    </div>
 
-  <form id="recipe-form" action="/recipes" method="POST">
+    <!-- <form id="recipe-form" action="/recipes" method="POST">
     <div class="recipe-section">
       <h3>General Information</h3>
       <div class="form-group">
@@ -101,9 +101,80 @@
       <button type="submit" class="btn primary">Save Recipe</button>
       <button type="button" class="btn secondary" onclick="window.location.href='/recipes'">Cancel</button>
     </div>
-  </form>
-</div>
+  </form> -->
 
-<script src="/js/recipe-form.js"></script>
 
-<%- include('partials/_footer') %>
+    <form id="create-recipe-form" action="/recipes" method="POST" autocomplete="off">
+      <input type="hidden" name="version" value="1">
+  
+      <!-- General Information -->
+      <div class="card">
+        <h2>General Information</h2>
+        <div class="form-row">
+          <input name="name" required placeholder="Recipe Name">
+          <input name="brewer" required placeholder="Brewer">
+          <select name="type" required>
+            <option value="">Select Type</option>
+            <option value="All Grain">All Grain</option>
+            <option value="Extract">Extract</option>
+            <option value="Partial Mash">Partial Mash</option>
+          </select>
+          <input name="batch_size" type="number" step="0.01" required placeholder="Batch Size (L)">
+          <input name="boil_size" type="number" step="0.01" required placeholder="Boil Size (L)">
+          <input name="boil_time" type="number" step="1" required placeholder="Boil Time (min)">
+          <input name="efficiency" type="number" step="0.01" placeholder="Efficiency (%)">
+          <input name="og" type="number" step="0.001" placeholder="OG">
+          <input name="fg" type="number" step="0.001" placeholder="FG">
+          <input name="primary_temp" type="number" step="0.1" placeholder="Primary Temp (°C)">
+          <textarea name="notes" placeholder="Notes"></textarea>
+        </div>
+      </div>
+  
+      <!-- Style -->
+      <div class="card">
+        <h2>Style</h2>
+        <div class="form-row">
+          <input name="style[name]" required placeholder="Style Name">
+          <input name="style[category]" placeholder="Category">
+        </div>
+      </div>
+  
+      <!-- Fermentables -->
+      <div class="card">
+        <h2>Fermentables</h2>
+        <div id="fermentables-list"></div>
+        <button type="button" class="btn" id="add-fermentable">Add Fermentable</button>
+      </div>
+  
+      <!-- Hops -->
+      <div class="card">
+        <h2>Hops</h2>
+        <div id="hops-list"></div>
+        <button type="button" class="btn" id="add-hop">Add Hop</button>
+      </div>
+  
+      <!-- Yeasts -->
+      <div class="card">
+        <h2>Yeasts</h2>
+        <div id="yeasts-list"></div>
+        <button type="button" class="btn" id="add-yeast">Add Yeast</button>
+      </div>
+  
+      <!-- Mash Steps -->
+      <div class="card">
+        <h2>Mash Steps</h2>
+        <input name="mash[grain_temp]" type="number" step="0.1" placeholder="Grain Temp (°C)">
+        <div id="mash-steps-list"></div>
+        <button type="button" class="btn" id="add-mash-step">Add Mash Step</button>
+      </div>
+  
+      <button type="submit" class="btn primary">Create Recipe</button>
+    </form>
+  
+
+  </div>
+
+  <script src="/js/create-recipe.js"></script>
+  <!-- <script src="/js/recipe-form.js"></script> -->
+
+  <%- include('partials/_footer') %>

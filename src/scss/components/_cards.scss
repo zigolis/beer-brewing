@@ -1,0 +1,74 @@
+// _card.scss
+
+.card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1);
+    background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+    background-blend-mode: overlay;
+
+    &:hover {
+        box-shadow: var(--elevation-shadow);
+    }
+
+    h2 {
+        margin: 0;
+        color: var(--primary-color);
+        font-size: 22px;
+        font-weight: 600;
+        position: relative;
+        padding: 16px 24px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        background-color: rgba(0, 0, 0, 0.03);
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 24px;
+            bottom: -1px;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+    }
+
+    .card-content {
+        padding: 20px 24px;
+    }
+}
+
+// Material grid system
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+// Material typography
+.info-label {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.info-value {
+    color: var(--text-primary);
+    font-size: 16px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.info-item {
+    padding: 12px;
+    border-radius: 4px;
+    background-color: rgba(255, 252, 245, 0.7);
+    border-left: 3px solid var(--amber-color);
+}

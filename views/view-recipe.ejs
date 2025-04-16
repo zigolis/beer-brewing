@@ -3,18 +3,23 @@
 <div class="container">
   <div class="page-header">
     <h2><%= recipe.name %></h2>
+
     <div class="action-buttons">
       <a href="/recipes" class="btn secondary">Back to Recipes</a>
       <a href="/recipes/<%= recipe._id %>/edit" class="btn primary">Edit Recipe</a>
+      
       <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" class="delete-form">
-        <button type="submit" class="btn danger" onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</button>
+        <button type="submit" class="btn danger" onclick="return confirm('Are you sure you want to delete this recipe?')">
+          Delete
+        </button>
       </form>
     </div>
   </div>
 
   <div class="recipe-content">
     <section id="general-info" class="card">
-      <h3>General Information</h3>
+      <h2>General Information</h2>
+
       <div class="card-content">
         <div class="info-grid">
           <% if (recipe.brewer) { %>
@@ -26,11 +31,19 @@
           <% if (recipe.style) { %>
             <div class="info-item">
               <div class="info-label">Style</div>
-              <div class="info-value"><%= recipe.style %></div>
+              <div class="info-value"><%= recipe.style.name %></div>
+            </div>
+          <% } %>
+          <% if (recipe.type) { %>
+            <div class="info-item">
+              <div class="info-label">Type</div>
+              <div class="info-value"><%= recipe.type %></div>
             </div>
           <% } %>
         </div>
+
         <% if (recipe.notes) { %>
+          <br>
           <div class="info-item">
             <div class="info-label">Notes</div>
             <div class="info-value"><%= recipe.notes %></div>
@@ -39,13 +52,13 @@
       </div>
     </section>
 
-    <%- include('partials/_stats', { recipe }) %>
+    <%- include('partials/_stats', { recipe, ebcToColor: helpers.ebcToColor }) %>
     
-    <%- include('partials/_fermentables', { recipe }) %>
+    <%- include('partials/_fermentables', { recipe, ebcToColor: helpers.ebcToColor }) %>
     
-    <%- include('partials/_hops', { recipe }) %>
+    <%- include('partials/_hops', { recipe, hopUseToColor: helpers.hopUseToColor, formatHopTime: helpers.formatHopTime }) %>
     
-    <%- include('partials/_yeast', { recipe }) %>
+    <%- include('partials/_yeast', { recipe, yeastTypeToColor: helpers.yeastTypeToColor }) %>
     
     <%- include('partials/_mash', { recipe }) %>
   </div>

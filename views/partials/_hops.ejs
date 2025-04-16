@@ -7,10 +7,10 @@
                 // Group hops by use
                 const hopGroups = {};
                 recipe.hops.forEach(hop => {
-                    if (!hopGroups[hop.use]) {
-                        hopGroups[hop.use] = [];
+                    if (!hopGroups[hop.USE]) {
+                        hopGroups[hop.USE] = [];
                     }
-                    hopGroups[hop.use].push(hop);
+                    hopGroups[hop.USE].push(hop);
                 });
                 
                 // Display each group
@@ -21,14 +21,14 @@
                         <div class="hop-cards">
                             <% hopGroups[useType].forEach(hop => { %>
                                 <div class="hop-card">
-                                    <div class="use-indicator" style="background-color: <%= hopUseToColor(hop.use) %>;"></div>
+                                    <div class="use-indicator" style="background-color: <%= hopUseToColor(hop.USE) %>;"></div>
                                     <div class="hop-content">
-                                        <div class="hop-name"><%= hop.name %></div>
+                                        <div class="hop-name"><%= hop.NAME %></div>
                                         <div class="hop-details">
-                                            <span class="amount"><%= hop.amount %> g</span>
-                                            <span class="time"><%= formatHopTime(hop.time, hop.use) %></span>
-                                            <% if (hop.alpha) { %>
-                                                <span class="alpha"><%= hop.alpha %>% AA</span>
+                                            <span class="amount"><%= hop.AMOUNT %> g</span>
+                                            <span class="time"><%= formatHopTime(hop.TIME, hop.USE) %></span>
+                                            <% if (hop.ALPHA) { %>
+                                                <span class="alpha"><%= hop.ALPHA %>% AA</span>
                                             <% } %>
                                         </div>
                                     </div>

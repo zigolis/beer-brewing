@@ -23,6 +23,7 @@
 // Individual fermentable card
 .fermentable-card {
     @include ingredient-card;
+    width: max-content;
 
     // Color indicator based on fermentable color (EBC)
     .color-indicator {

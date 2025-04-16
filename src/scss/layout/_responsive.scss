@@ -90,7 +90,9 @@
 
         // Full-width sections
         #general-info,
-        #stats-section {
+        #stats-section,
+        #fermentables-section, 
+        #hops-section {
             grid-column: 1 / -1;
         }
     }

@@ -43,6 +43,7 @@
 // Individual hop card
 .hop-card {
     @include ingredient-card;
+    // width: max-content;
 
     // Color indicator based on hop use
     .use-indicator {
