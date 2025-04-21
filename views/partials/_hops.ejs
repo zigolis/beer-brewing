@@ -25,7 +25,7 @@
                                     <div class="hop-content">
                                         <div class="hop-name"><%= hop.NAME %></div>
                                         <div class="hop-details">
-                                            <span class="amount"><%= hop.AMOUNT %> g</span>
+                                            <span class="amount"><%= formatHopAmount(hop.AMOUNT) %></span>
                                             <span class="time"><%= formatHopTime(hop.TIME, hop.USE) %></span>
                                             <% if (hop.ALPHA) { %>
                                                 <span class="alpha"><%= hop.ALPHA %>% AA</span>

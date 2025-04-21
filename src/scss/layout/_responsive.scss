@@ -92,7 +92,9 @@
         #general-info,
         #stats-section,
         #fermentables-section, 
-        #hops-section {
+        #mash-section,
+        #hops-section,
+        #yeasts-section {
             grid-column: 1 / -1;
         }
     }

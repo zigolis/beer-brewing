@@ -1,18 +1,24 @@
 <section id="mash-section" class="card">
     <h2>Mash Schedule</h2>
-    <div class="card-content">
-        <% if (recipe.mashSteps && recipe.mashSteps.length > 0) { %>
+
+    <div class="card-content">        
+        <% if (recipe.mash && recipe.mash.MASH_STEPS && recipe.mash.MASH_STEPS.MASH_STEP) {
+            let steps = Array.isArray(recipe.mash.MASH_STEPS.MASH_STEP)
+                ? recipe.mash.MASH_STEPS.MASH_STEP
+                : [recipe.mash.MASH_STEPS.MASH_STEP]; %>
             <div id="mash-list">
-                <% recipe.mashSteps.forEach((step, index) => { %>
-                    <div class="mash-step">
-                        <div class="step-indicator"><%= index + 1 %></div>
+                <% steps.forEach(function(step, idx) { %>
+                    <div class="mash-card">
+                        <div class="step-indicator"></div>
                         <div class="mash-content">
-                            <div class="step-name"><%= step.name %></div>
+                            <div class="step-name"><%= step.NAME %></div>
                             <div class="step-details">
-                                <span class="temperature"><%= step.temperature %>°C</span>
-                                <span class="step-time"><%= step.time %> min</span>
-                                <% if (step.type) { %>
-                                    <span class="step-type"><%= step.type %></span>
+                                <% if (step.STEP_TEMP) { %>
+                                    <span class="temperature"><%= step.STEP_TEMP %>°C</span>
+                                <% } %> 
+
+                                <% if (step.STEP_TIME) { %>
+                                    <span class="step-time"><%= step.STEP_TIME %> min</span>
                                 <% } %>
                             </div>
                         </div>

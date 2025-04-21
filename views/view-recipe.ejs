@@ -56,11 +56,11 @@
     
     <%- include('partials/_fermentables', { recipe, ebcToColor: helpers.ebcToColor }) %>
     
-    <%- include('partials/_hops', { recipe, hopUseToColor: helpers.hopUseToColor, formatHopTime: helpers.formatHopTime }) %>
-    
-    <%- include('partials/_yeast', { recipe, yeastTypeToColor: helpers.yeastTypeToColor }) %>
-    
     <%- include('partials/_mash', { recipe }) %>
+    
+    <%- include('partials/_hops', { recipe, hopUseToColor: helpers.hopUseToColor, formatHopTime: helpers.formatHopTime, formatHopAmount: helpers.formatHopAmount }) %>
+    
+    <%- include('partials/_yeast', { recipe, yeastTypeToColor: helpers.yeastTypeToColor, formatYeastAmount: helpers.formatYeastAmount }) %>
   </div>
 </div>
 

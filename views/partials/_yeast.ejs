@@ -17,7 +17,7 @@
                                         <span class="form"><%= yeast.FORM %></span>
                                     <% } %>
                                     <% if (yeast.AMOUNT) { %>
-                                        <span class="attenuation"><%= yeast.AMOUNT %></span>
+                                        <span class="attenuation"><%= formatYeastAmount(yeast.AMOUNT, yeast.FORM) %></span>
                                     <% } %>
                                 </div>
                             </div>

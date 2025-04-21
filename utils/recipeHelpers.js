@@ -11,24 +11,6 @@ exports.ebcToColor = function (ebc) {
 
     // Convert to hex
     return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-
-    // Simplified SRM = EBC * 0.508
-    // const srm = ebc * 0.508;
-
-    // // Color conversion logic based on SRM value
-    // if (srm <= 2) return '#FFE699'; // Very light
-    // if (srm <= 3) return '#FFD878'; // Light
-    // if (srm <= 4) return '#FFCA5A'; // Pale
-    // if (srm <= 6) return '#FFBF42'; // Gold
-    // if (srm <= 8) return '#FBB123'; // Amber
-    // if (srm <= 10) return '#F8A600'; // Deep amber
-    // if (srm <= 13) return '#E78A00'; // Copper
-    // if (srm <= 17) return '#D47500'; // Deep copper
-    // if (srm <= 20) return '#C63C00'; // Brown
-    // if (srm <= 24) return '#8D2900'; // Dark brown
-    // if (srm <= 29) return '#5D1900'; // Very dark brown
-    // if (srm <= 35) return '#2E0E00'; // Black
-    // return '#000000'; // Very black
 };
 
 // Convert hop use to CSS color
@@ -43,14 +25,6 @@ exports.hopUseToColor = function (use) {
         default:
             return '#bdbdbd'; // grey fallback
     }
-
-    // const useType = use.toLowerCase();
-    // if (useType === 'boil') return '#4CAF50'; // Green
-    // if (useType === 'dry hop') return '#2196F3'; // Blue
-    // if (useType === 'mash') return '#FF9800'; // Orange
-    // if (useType === 'first wort') return '#9C27B0'; // Purple
-    // if (useType === 'aroma') return '#00BCD4'; // Cyan
-    // return '#607D8B'; // Default blue-grey
 };
 
 // Convert yeast type to CSS color
@@ -69,25 +43,55 @@ exports.yeastTypeToColor = function (type) {
         default:
             return '#BDBDBD'; // Grey fallback
     }
-    // const yeastType = type.toLowerCase();
-    // if (yeastType === 'ale') return '#FF9800'; // Orange
-    // if (yeastType === 'lager') return '#2196F3'; // Blue
-    // if (yeastType === 'wheat') return '#FFEB3B'; // Yellow
-    // if (yeastType === 'wine') return '#9C27B0'; // Purple
-    // if (yeastType === 'champagne') return '#00BCD4'; // Cyan
-    // return '#607D8B'; // Default blue-grey
 };
 
-// Format hop time based on use
+/**
+ * Formats the hop addition time for display.
+ * - For dry hops: if time >= 1440 min, show in days (rounded)
+ * - For boil/aroma: if time == 0, show "Flame out"
+ * - Otherwise: show as "X min"
+ */
 exports.formatHopTime = function (time, use) {
-    const timeValue = parseFloat(time);
-    if (isNaN(timeValue)) return '-';
+    // Defensive: ensure time is a number
+    const minutes = Number(time);
 
-    const useType = use ? use.toLowerCase() : 'boil';
-
-    if (useType === 'dry hop') {
-        return timeValue === 1 ? '1 day' : `${timeValue} days`;
+    // Dry hop: show in days if time is >= 1440 min (1 day)
+    if (use && use.toLowerCase().includes('dry')) {
+        if (minutes >= 1440) {
+            const days = Math.round(minutes / 1440);
+            return `${days} day${days > 1 ? 's' : ''}`;
+        }
+        return `${minutes} min`;
     }
 
-    return timeValue === 1 ? '1 min' : `${timeValue} min`;
+    // Boil/aroma: 0 min means "Flame out"
+    if (minutes === 0) {
+        return 'Flame out';
+    }
+
+    // Default: show minutes
+    return `${minutes} min`;
+};
+
+exports.formatHopAmount = function (amount) {
+    const grams = Number(amount) * 1000;
+    return (isNaN(grams) ? '0' : grams.toFixed(1).replace(/\.0$/, '')) + ' g';
+};
+
+exports.formatYeastAmount = function (amount, type) {
+    // Defensive: handle missing values
+    if (!amount) return '-';
+
+    const typeStr = (type || '').toLowerCase();
+
+    if (typeStr.includes('liquid')) {
+        // Liquid yeast: show in mL (most homebrew packs are 35 mL, 100 mL, etc.)
+        const ml = Number(amount) * 1000;
+        // If amount is already in mL (e.g., >10), don't multiply
+        return (ml >= 10 ? ml : Number(amount)).toFixed(0) + ' mL';
+    } else {
+        // Dry yeast or other: show in grams
+        const grams = Number(amount) * 1000;
+        return (grams >= 1 ? grams : Number(amount)).toFixed(1).replace(/\.0$/, '') + ' g';
+    }
 };

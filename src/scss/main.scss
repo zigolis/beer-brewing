@@ -24,22 +24,3 @@
 @import 'components/yeast';
 @import 'components/cards';
 @import 'components/createRecipe';
-
-// Print styles (optional)
-@media print {
-  header, footer, .action-buttons, .btn {
-    display: none;
-  }
-  
-  body {
-    background-color: white;
-    color: black;
-  }
-  
-  .card {
-    break-inside: avoid;
-    border: 1px solid #ddd;
-    box-shadow: none;
-    margin-bottom: 1rem;
-  }
-}

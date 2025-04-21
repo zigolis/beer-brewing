@@ -6,129 +6,75 @@
       <a href="/recipes" class="btn secondary">Back to Recipes</a>
     </div>
 
-    <!-- <form id="recipe-form" action="/recipes" method="POST">
-    <div class="recipe-section">
-      <h3>General Information</h3>
-      <div class="form-group">
-        <label for="name">Recipe Name*</label>
-        <input type="text" id="name" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="brewer">Brewer</label>
-        <input type="text" id="brewer" name="brewer">
-      </div>
-      <div class="form-group">
-        <label for="style">Style</label>
-        <input type="text" id="style" name="style">
-      </div>
-      <div class="form-group">
-        <label for="notes">Notes</label>
-        <textarea id="notes" name="notes"></textarea>
-      </div>
-    </div>
-
-    <div class="recipe-section">
-      <h3>Recipe Statistics</h3>
-      <div class="stats-grid">
-        <div class="form-group">
-          <label for="batchSize">Batch Size (L)*</label>
-          <input type="number" id="batchSize" name="batchSize" step="0.1" min="0" required>
-        </div>
-        <div class="form-group">
-          <label for="boilSize">Boil Size (L)</label>
-          <input type="number" id="boilSize" name="boilSize" step="0.1" min="0">
-        </div>
-        <div class="form-group">
-          <label for="efficiency">Efficiency (%)</label>
-          <input type="number" id="efficiency" name="efficiency" min="0" max="100">
-        </div>
-        <div class="form-group">
-          <label for="originalGravity">Original Gravity</label>
-          <input type="number" id="originalGravity" name="originalGravity" step="0.001" min="1.000">
-        </div>
-        <div class="form-group">
-          <label for="finalGravity">Final Gravity</label>
-          <input type="number" id="finalGravity" name="finalGravity" step="0.001" min="0.980">
-        </div>
-        <div class="form-group">
-          <label for="ibu">IBU</label>
-          <input type="number" id="ibu" name="ibu" step="0.1" min="0">
-        </div>
-        <div class="form-group">
-          <label for="abv">ABV (%)</label>
-          <input type="number" id="abv" name="abv" step="0.1" min="0">
-        </div>
-        <div class="form-group">
-          <label for="color">Color (EBC)</label>
-          <input type="number" id="color" name="color" step="0.1" min="0">
-        </div>
-      </div>
-    </div>
-
-    <div class="recipe-section">
-      <h3>Fermentables</h3>
-      <div id="fermentables-container"></div>
-      <button type="button" id="add-fermentable" class="add-button">
-        <span class="material-icons">add</span> Add Fermentable
-      </button>
-    </div>
-
-    <div class="recipe-section">
-      <h3>Hops</h3>
-      <div id="hops-container"></div>
-      <button type="button" id="add-hop" class="add-button">
-        <span class="material-icons">add</span> Add Hop
-      </button>
-    </div>
-
-    <div class="recipe-section">
-      <h3>Yeasts</h3>
-      <div id="yeasts-container"></div>
-      <button type="button" id="add-yeast" class="add-button">
-        <span class="material-icons">add</span> Add Yeast
-      </button>
-    </div>
-
-    <div class="recipe-section">
-      <h3>Mash Schedule</h3>
-      <div id="mash-steps-container"></div>
-      <button type="button" id="add-mash-step" class="add-button">
-        <span class="material-icons">add</span> Add Mash Step
-      </button>
-    </div>
-
-    <div class="form-actions">
-      <button type="submit" class="btn primary">Save Recipe</button>
-      <button type="button" class="btn secondary" onclick="window.location.href='/recipes'">Cancel</button>
-    </div>
-  </form> -->
-
 
     <form id="create-recipe-form" action="/recipes" method="POST" autocomplete="off">
       <input type="hidden" name="version" value="1">
   
       <!-- General Information -->
-      <div class="card">
+      <section class="recipe-section card">
         <h2>General Information</h2>
-        <div class="form-row">
-          <input name="name" required placeholder="Recipe Name">
-          <input name="brewer" required placeholder="Brewer">
-          <select name="type" required>
-            <option value="">Select Type</option>
-            <option value="All Grain">All Grain</option>
-            <option value="Extract">Extract</option>
-            <option value="Partial Mash">Partial Mash</option>
-          </select>
-          <input name="batch_size" type="number" step="0.01" required placeholder="Batch Size (L)">
-          <input name="boil_size" type="number" step="0.01" required placeholder="Boil Size (L)">
-          <input name="boil_time" type="number" step="1" required placeholder="Boil Time (min)">
-          <input name="efficiency" type="number" step="0.01" placeholder="Efficiency (%)">
-          <input name="og" type="number" step="0.001" placeholder="OG">
-          <input name="fg" type="number" step="0.001" placeholder="FG">
-          <input name="primary_temp" type="number" step="0.1" placeholder="Primary Temp (°C)">
-          <textarea name="notes" placeholder="Notes"></textarea>
+        <div class="form-group">
+          <div class="form-group">
+            <label for="recipe-name">Recipe Name*</label>
+            <input type="text" id="recipe-name" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="recipe-brewer">Brewer</label>
+            <input type="text" id="recipe-brewer" name="brewer">
+          </div>
+
+          <div class="form-group">
+            <label for="general-type">Type</label>
+            <select name="type" id="general-type" required>
+              <option value="">Select Type</option>
+              <option value="All Grain">All Grain</option>
+              <option value="Extract">Extract</option>
+              <option value="Partial Mash">Partial Mash</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="batch_size">Batch Size (L)</label>
+            <input name="batch_size" id="batch_size" type="number" step="1" min="5" required>
+          </div>
+
+          <div class="form-group">
+            <label for="boil_size">Boil Size (L)</label>
+            <input name="boil_size" id="boil_size" type="number" step="1" min="5" required>
+          </div>
+
+          <div class="form-group">
+            <label for="boil_time">Boil Time (Min)</label>
+            <input name="boil_time" id="boil_time" type="number" step="5" min="20" required>
+          </div>
+
+          <div class="form-group">
+            <label for="efficiency">Efficiency (%)</label>
+            <input name="efficiency" id="efficiency" type="number" step="1" min="50" max="100">
+          </div>
+
+          <div class="form-group">
+            <label for="og">OG</label>
+            <input name="og" id="og" type="number" step="1" min="1000" required>
+          </div>
+
+          <div class="form-group">
+            <label for="fg">FG</label>
+            <input name="fg" id="fg" type="number" step="1" min="1000" required>
+          </div>
+
+          <div class="form-group">
+            <label for="primary_temp">Primary Temp</label>
+            <input name="primary_temp" id="primary_temp" type="number" step="1" min="10">
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea name="notes" id="notes"></textarea>
+          </div>
         </div>
-      </div>
+      </section>
   
       <!-- Style -->
       <div class="card">
@@ -175,6 +121,5 @@
   </div>
 
   <script src="/js/create-recipe.js"></script>
-  <!-- <script src="/js/recipe-form.js"></script> -->
 
   <%- include('partials/_footer') %>
